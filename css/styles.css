@@ -1,0 +1,13 @@
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center
+}
+
+.flex-container > div {
+    width: 300px;
+    margin: 10px;
+    text-align: center;
+    line-height: 1.75rem;
+    border: 2px solid brown;
+}
