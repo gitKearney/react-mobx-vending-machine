@@ -5,34 +5,21 @@ export const CartStore = (): CartStoreShape => {
   return makeAutoObservable(
     {
       items: [] as ItemShape[], // these items are separate from the item store
-      addItem: function (index: number, title: string) {
-        let indexOf: number = -1
-        this.items.forEach((item) => {
-          if (indexOf < 0) {
-            if (item.index === index) {
-              indexOf = index
-              item.quantity += 1
-            }
-          }
-        })
-
-        if (indexOf < 0) {
-          this.items.push({ title, index, quantity: 1 })
+      addItem: function (id: number, title: string) {
+        const it = this.items.find((item) => item.id === id)
+        ;(it != null) ? it.quantity++ : this.items.push({ title, id, quantity: 1 })
+      },
+      decrementCount: function (id: number) {
+        const it = this.items.find((item) => item.id === id)
+        if (it != null) {
+          it.quantity--
         }
       },
-      decrementCount: function (itemIndex: number) {
-        this.items.forEach((item) => {
-          if (item.index === itemIndex) {
-            item.quantity -= 1
-          }
-        })
-      },
-      incrementCount: function (itemIndex: number) {
-        this.items.forEach((item) => {
-          if (item.index === itemIndex) {
-            item.quantity += 1
-          }
-        })
+      incrementCount: function (id: number) {
+        const it = this.items.find((item) => item.id === id)
+        if (it != null) {
+          it.quantity++
+        }
       }
     }
   )

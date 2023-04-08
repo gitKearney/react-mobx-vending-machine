@@ -8,7 +8,7 @@ export interface CartStoreShape {
 export interface ItemShape {
   title: string
   quantity: number
-  index: number
+  id: number
 }
 
 export interface RootStoreShape {
@@ -26,6 +26,8 @@ export interface ObsItem {
 
 export interface ItemStoreShape {
   items: ItemShape[]
+  setItems: (vals: ItemShape[]) => void
+  getItems: () => ItemShape[]
   removeItem: (index: number) => void
   addItem: (index: number) => void
 }

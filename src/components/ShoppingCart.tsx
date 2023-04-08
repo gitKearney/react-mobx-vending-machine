@@ -1,13 +1,12 @@
 import React from 'react'
 import { type CartStoreShape, type ItemShape, type ItemStoreShape } from '../interfaces'
 import { observer } from 'mobx-react-lite'
+import { rootStore } from '../App'
 
-interface ShoppingCartProps {
-  cartStore: CartStoreShape
-  itemStore: ItemStoreShape
-}
+export const ShoppingCart = observer((): JSX.Element => {
+  const { cartStore, itemStore }: { cartStore: CartStoreShape, itemStore: ItemStoreShape } =
+      rootStore
 
-export const ShoppingCart = observer(({ cartStore, itemStore }: ShoppingCartProps): JSX.Element => {
   const addToCart = (itemIndex: number): void => {
     cartStore.incrementCount(itemIndex)
     itemStore.removeItem(itemIndex)
@@ -25,10 +24,10 @@ export const ShoppingCart = observer(({ cartStore, itemStore }: ShoppingCartProp
 
     const li = cartStore.items.map((item: ItemShape) => {
       return (
-        <li key={item.index}>
-                    ( {item.index} ) {item.title} - {item.quantity}
-          <button type={'button'} onClick={() => { addToCart(item.index) }}>➕</button>
-          <button type={'button'} onClick={() => { removeFromCart(item.index) }}>➖</button>
+        <li key={item.id}>
+                    ( {item.id} ) {item.title} - {item.quantity}
+          <button type={'button'} onClick={() => { addToCart(item.id) }}>➕</button>
+          <button type={'button'} onClick={() => { removeFromCart(item.id) }}>➖</button>
         </li>
       )
     })

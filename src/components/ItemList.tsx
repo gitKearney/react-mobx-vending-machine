@@ -2,11 +2,9 @@ import React from 'react'
 import { type RootStoreShape } from '../interfaces'
 import { observer } from 'mobx-react-lite'
 
-interface ItemList2Props {
-  rootStore: RootStoreShape
-}
+import { rootStore } from '../App'
 
-export const ItemList = observer(({ rootStore }: ItemList2Props): JSX.Element => {
+export const ItemList = observer((): JSX.Element => {
   const { itemStore, cartStore }: RootStoreShape = rootStore
 
   const addItemToCart = (itemIndex: number, itemTitle: string): void => {

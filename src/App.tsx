@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Footer from './components/Footer'
-import { type ItemShape } from './interfaces'
 import { apiGetItems } from './utils/apiGetItems'
 import { ShoppingCart } from './components/ShoppingCart'
 import { ItemList } from './components/ItemList'
@@ -15,19 +14,15 @@ interface AppProps {
   copyright: number
 }
 
+export const rootStore = createRootStore()
+
 const App = ({ author, copyright, spdx }: AppProps): JSX.Element => {
-  const [items, setItems] = useState<ItemShape[]>([])
-
-  const rootStore = createRootStore()
-
-  if (items.length > 0) {
-    rootStore.itemStore.items = items
-  }
-
   useEffect(() => {
     const _getItems = (): void => {
       apiGetItems()
-        .then(setItems)
+        .then((res) => {
+          rootStore.itemStore.setItems(res)
+        })
         .catch((err) => {
           console.log('whoops!', err)
         })
@@ -42,8 +37,8 @@ const App = ({ author, copyright, spdx }: AppProps): JSX.Element => {
       <h1>Vite + React + MobX</h1>
       <hr />
       <div className="flex-container">
-        <ShoppingCart cartStore={rootStore.cartStore} itemStore={rootStore.itemStore} />
-        <ItemList rootStore={rootStore} />
+        <ShoppingCart />
+        <ItemList />
       </div>
       <Footer author={author} copyright={copyright} spdx={spdx} />
     </div>
