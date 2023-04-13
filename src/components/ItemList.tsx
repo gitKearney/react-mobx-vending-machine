@@ -18,10 +18,10 @@ export const ItemList = observer((): JSX.Element => {
     }
 
     const li = itemStore.items.map((i) => (
-      <li key={i.index}>
-        {i.index}) {i.title} - {i.quantity}
+      <li key={i.id}>
+        {i.id}) {i.title} - {i.quantity}
         <span style={{ marginLeft: '1rem' }}>
-          <button type="button" onClick={() => { addItemToCart(i.index, i.title) } }>✅</button>
+          <button type="button" onClick={() => { addItemToCart(i.id, i.title) } }>✅</button>
         </span>
       </li>
     ))

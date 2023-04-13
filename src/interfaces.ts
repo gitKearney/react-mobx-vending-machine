@@ -16,14 +16,6 @@ export interface RootStoreShape {
   cartStore: CartStoreShape
 }
 
-export interface ObsItem {
-  title: string
-  quantity: number
-  index: number
-  decrementCount: () => void
-  incrementCount: () => void
-}
-
 export interface ItemStoreShape {
   items: ItemShape[]
   setItems: (vals: ItemShape[]) => void
